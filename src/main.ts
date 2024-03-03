@@ -19,7 +19,7 @@ async function bootstrap() {
   await app.listen(PORT);
   // Logger
   Logger.log(
-    `Server is Running(🔥) on http://127.0.0.1:${PORT}/api-doc/`,
+    `Server is Running(🔥) on http://127.0.0.1:${PORT}/api/`,
     'Exal sheet',
   );
 }
