@@ -3,43 +3,43 @@ import { Injectable } from '@nestjs/common';
 import { Readable } from 'stream';
 import axios from 'axios';
 
+export const attendanceData = async () => {
+  try {
+    const params = {
+      user_id: '8722d06a-e334-4450-9793-27ac9578f6a2',
+      start_date: '2024-01-15',
+      end_date: '2024-02-15',
+    };
+
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYjY2YjU1LTUyMDMtNGVjMi05MzQ3LTlkOGNlODcxZTkxNiIsInN0YXR1cyI6MSwiZnVsbF9uYW1lIjoiRmFoYWQgSGltZWwiLCJwaG90byI6IklNR18yMDI0MDEwMl8xMTAxNDQtcmVtb3ZlYmdfXzNfLVBob3RvUm9vbV8xNzA0NTEyNDA3MTAxLnBuZyIsImVtYWlsIjoiZmFoYWRoaW1lbEBnbWFpbC5jb20iLCJwaG9uZV9udW1iZXIiOiIwMTc1MzY0ODI1NiIsImlzX2FjdGl2ZSI6MSwiaXNfYWRtaW4iOjAsInVzZXJfcm9sZXNfaW5mbyI6W3siaWQiOiIwZGY4MGQyZC00MDFmLTRiYTUtYjg0Yy04NTQ3ZDYyM2I0M2MiLCJyb2xlc19pbmZvIjp7ImlkIjoiMmY2ZjFlZTYtNjM4Mi00ZmJjLThjOTQtYjdlYjlhZGQwMWU2IiwibmFtZSI6Imd1ZXN0In19LHsiaWQiOiIzZjU5Y2I0Yy0xZGYxLTQ0MmYtYTE1ZS1iOTZhNGQ4ZTI3MTAiLCJyb2xlc19pbmZvIjp7ImlkIjoiM2NmYTM0M2YtYjYzZS00Nzk2LTljZWYtMTM2N2JiN2FmOGI2IiwibmFtZSI6InN1cGVyX2FkbWluIn19LHsiaWQiOiI3OTA1ZTUyNy0wMTI1LTQ2ZTEtYTllMS00ZTYwYjJkOTVkMjYiLCJyb2xlc19pbmZvIjp7ImlkIjoiYWZkZTQwZTktYzM2ZS00MWVmLTk2NDItMDA5OWZkNTUzZGMwIiwibmFtZSI6InNwZWNpYWxfc3VwZXJfYWRtaW4ifX1dLCJyb2xlX2lkIjoiYWZkZTQwZTktYzM2ZS00MWVmLTk2NDItMDA5OWZkNTUzZGMwIiwicm9sZV9uYW1lIjoic3BlY2lhbF9zdXBlcl9hZG1pbiIsImlhdCI6MTcwNzEyOTU4NSwiZXhwIjoxNzA5NzIxNTg1fQ.XbLHzfJ241DSToGeVT1iOYgxVorWvhLWdRr6YyzII8s';
+
+    const res = await axios.get(
+      'http://localhost:8001/api/admin/report/attandence-report/details',
+      {
+        params,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          // Add other headers if needed
+        },
+      },
+    );
+    const { attandence_report_details } = res.data.payload;
+    return attandence_report_details;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 @Injectable()
 export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
 
-  async attendanceData() {
-    try {
-      const params = {
-        user_id: '8722d06a-e334-4450-9793-27ac9578f6a2',
-        start_date: '2024-01-15',
-        end_date: '2024-02-15',
-      };
-
-      const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYjY2YjU1LTUyMDMtNGVjMi05MzQ3LTlkOGNlODcxZTkxNiIsInN0YXR1cyI6MSwiZnVsbF9uYW1lIjoiRmFoYWQgSGltZWwiLCJwaG90byI6IklNR18yMDI0MDEwMl8xMTAxNDQtcmVtb3ZlYmdfXzNfLVBob3RvUm9vbV8xNzA0NTEyNDA3MTAxLnBuZyIsImVtYWlsIjoiZmFoYWRoaW1lbEBnbWFpbC5jb20iLCJwaG9uZV9udW1iZXIiOiIwMTc1MzY0ODI1NiIsImlzX2FjdGl2ZSI6MSwiaXNfYWRtaW4iOjAsInVzZXJfcm9sZXNfaW5mbyI6W3siaWQiOiIwZGY4MGQyZC00MDFmLTRiYTUtYjg0Yy04NTQ3ZDYyM2I0M2MiLCJyb2xlc19pbmZvIjp7ImlkIjoiMmY2ZjFlZTYtNjM4Mi00ZmJjLThjOTQtYjdlYjlhZGQwMWU2IiwibmFtZSI6Imd1ZXN0In19LHsiaWQiOiIzZjU5Y2I0Yy0xZGYxLTQ0MmYtYTE1ZS1iOTZhNGQ4ZTI3MTAiLCJyb2xlc19pbmZvIjp7ImlkIjoiM2NmYTM0M2YtYjYzZS00Nzk2LTljZWYtMTM2N2JiN2FmOGI2IiwibmFtZSI6InN1cGVyX2FkbWluIn19LHsiaWQiOiI3OTA1ZTUyNy0wMTI1LTQ2ZTEtYTllMS00ZTYwYjJkOTVkMjYiLCJyb2xlc19pbmZvIjp7ImlkIjoiYWZkZTQwZTktYzM2ZS00MWVmLTk2NDItMDA5OWZkNTUzZGMwIiwibmFtZSI6InNwZWNpYWxfc3VwZXJfYWRtaW4ifX1dLCJyb2xlX2lkIjoiYWZkZTQwZTktYzM2ZS00MWVmLTk2NDItMDA5OWZkNTUzZGMwIiwicm9sZV9uYW1lIjoic3BlY2lhbF9zdXBlcl9hZG1pbiIsImlhdCI6MTcwNzEyOTU4NSwiZXhwIjoxNzA5NzIxNTg1fQ.XbLHzfJ241DSToGeVT1iOYgxVorWvhLWdRr6YyzII8s';
-
-      const res = await axios.get(
-        'http://localhost:8001/api/admin/report/attandence-report/details',
-        {
-          params,
-          headers: {
-            Authorization: `Bearer ${token}`,
-            // Add other headers if needed
-          },
-        },
-      );
-      const { attandence_report_details } = res.data.payload;
-      return attandence_report_details;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   async createExcelStream(): Promise<Readable> {
     try {
-      const attandence_report_details = await this.attendanceData();
+      const attandence_report_details = await attendanceData();
       // console.log('attandence_report_details', attandence_report_details);
 
       const jsonDataObject: any[] = [];
